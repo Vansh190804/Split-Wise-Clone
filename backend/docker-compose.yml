@@ -1,0 +1,38 @@
+
+services:
+   db:
+      image: postgres:15.3-alpine
+      restart: unless-stopped
+      environment:
+         POSTGRES_USER: splitwise_user
+         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+         POSTGRES_DB: splitwise_db
+      ports:
+         - "5432:5432"
+      volumes:
+         - db_data:/var/lib/postgresql/data
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U splitwise_user -d splitwise_db"]
+        interval: 5s
+        timeout: 5s
+        retries: 10
+        
+   app:
+      build:
+         context: .
+         dockerfile: Dockerfile
+      restart: unless-stopped
+      environment:
+         DATABASE_URL: ${DATABASE_URL}
+         SECRET_KEY: ${SECRET_KEY}
+         SUPABASE_URL: ${SUPABASE_URL}
+         SUPABASE_KEY: ${SUPABASE_KEY}
+         GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+         GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+         RESEND_API_KEY: ${RESEND_API_KEY}
+      ports:
+         - "8000:8000"
+      depends_on:
+         - db
+
+
