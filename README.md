@@ -1,75 +1,131 @@
 # Split-Wise-Clone
-A full-stack expense-sharing application inspired by Splitwise, built to understand how complex expense, balance, settlement, and relationship flows work in a real-world application.
 
-The project focuses not only on building the UI, but also on designing the database structure and backend logic required to correctly handle expenses between friends and within groups, settlements, balance calculations, and transaction history.
+A full-stack expense-sharing application inspired by Splitwise, built to explore the complexities of expense tracking, balance calculations, settlements, and relationships between users.
 
-# Features
-Create and manage groups
-Add friends and manage friendships
-Create, edit, and delete expenses
-Split expenses between multiple users
-Track individual and group balances
-Settle up balances between users
-View expense and settlement history
-Google OAuth authentication
+Rather than focusing solely on the UI, this project explores the database design and backend logic required to manage expenses between friends and within groups, maintain accurate balances, and preserve transaction history.
 
-# Tech Stack
+## ✨ Features
 
-# Frontend
-React
-TypeScript
-Tailwind CSS
-shadcn/ui
-Axios
+- **Group Management** — Create and manage groups.
+- **Friendships** — Add friends and manage friendships.
+- **Expense Management** — Create, edit, and delete expenses.
+- **Expense Splitting** — Split expenses among multiple users.
+- **Balance Tracking** — Track individual and group balances.
+- **Settlements** — Settle outstanding balances between users.
+- **Transaction History** — View expense and settlement history.
+- **Authentication** — Sign in using Google OAuth.
 
-# Backend
-FastAPI
-Python
-SQLAlchemy
-PostgreSQL
-JWT / Google OAuth
+## 🛠️ Tech Stack
 
-# Storage
-Supabase Storage (user and group images)
+### Frontend
 
-# What I Wanted to Learn
-This project was primarily built as a learning project to understand complex database and backend flows that are prominent in applications like Splitwise.
-A simple expense tracker can be implemented with basic CRUD operations, but an application like this introduces more complicated problems:
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Axios
 
-How should expenses and their individual splits be represented in a relational database?
-How should balances be calculated across multiple expenses?
-How should settlements affect existing balances and transaction history?
-How should the same two users' expenses behave when they are both inside and outside groups?
-How should historical transactions be handled after a user settles their balance?
-How should different operations affect the overall balance without creating inconsistent state?
+### Backend
 
-Working through these problems helped me understand relational database design, transaction flows, state consistency, and backend architecture beyond straightforward CRUD APIs.
+- Python
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
+- JWT Authentication
+- Google OAuth
 
-# How to Run the Application
+### Storage
 
-1. Clone the Repository
-git clone https://github.com/Vansh190804/Split-Wise-Clone
+- **Supabase Storage** — Stores user and group images.
+
+### Development & Deployment
+
+- Docker
+- Docker Compose
+
+## 🎯 What I Wanted to Learn
+
+This project was primarily built to understand the complex database and backend workflows found in applications like Splitwise.
+
+A basic expense tracker can be implemented with straightforward CRUD operations. However, an application like this introduces more challenging questions:
+
+- How should expenses and their individual splits be represented in a relational database?
+- How should balances be calculated across multiple expenses?
+- How should settlements affect balances while preserving transaction history?
+- How should expenses between the same two users behave when they occur both inside and outside groups?
+- How should historical transactions be handled after a balance is settled?
+- How can different operations update balances without creating inconsistent states?
+
+Working through these challenges helped me develop a deeper understanding of **relational database design, balance calculations, transaction flows, state consistency, and backend architecture** beyond basic CRUD operations.
+
+## 🚀 How to Run the Application
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- [Git](https://git-scm.com/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Node.js and npm](https://nodejs.org/)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Vansh190804/Split-Wise-Clone.git
 cd Split-Wise-Clone
+```
 
-2. Configure Environment Variables
-Copy the example environment file to create your local .env file.
-Windows (PowerShell): Copy-Item .env.example .env
-macOS / Linux: cp .env.example .env
-Update the values in .env with your configuration and credentials as required.
+### 2. Configure Environment Variables
 
-3. Start the Backend and Database
-Run the following command from the project root directory:
+Create your local `.env` file from the provided example.
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item .env.example .env
+```
+
+**macOS / Linux**
+
+```bash
+cp .env.example .env
+```
+
+Update `.env` with the required configuration and credentials, including your database password, application secret, Google OAuth credentials, Supabase credentials, and Resend API key.
+
+> **Note:** Never commit your actual `.env` file or expose your secret credentials publicly.
+
+### 3. Start the Backend and Database
+
+From the project root, run:
+
+```bash
 docker compose up --build
-This starts the FastAPI backend and PostgreSQL database in separate containers.
+```
 
-4. Start the Frontend
+This starts the **FastAPI backend** and **PostgreSQL database** in separate Docker containers.
+
+Once running, the backend API and interactive documentation are available at:
+
+- **API:** [http://localhost:8000](http://localhost:8000)
+- **API Documentation:** [http://localhost:8000/docs](http://localhost:8000/docs)
+
+### 4. Start the Frontend
+
 Open a new terminal and navigate to the frontend directory:
+
+```bash
 cd Frontend
 npm install
 npm run dev
+```
 
-Open the local URL displayed by Vite in your terminal, typically http://localhost:5173.
-Ensure the frontend's API configuration points to http://localhost:8000 in /src/api/axios.ts
+Open the local URL displayed by Vite, typically:
 
-Open the local URL displayed by Vite in your terminal, typically http://localhost:5173.
-Ensure the frontend's API configuration points to http://localhost:8000 in /src/api/axios.ts
+**[http://localhost:5173](http://localhost:5173)**
+
+Ensure the frontend API configuration in `Frontend/src/api/axios.ts` points to:
+
+```text
+http://localhost:8000
+```
